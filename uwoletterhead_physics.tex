@@ -1,0 +1,34 @@
+%\input epsf
+% FONTS FOR THE LETTERHEAD
+\font\fiveheadrm=cmr5 at 5pt
+\font\sixheader=cmr6 at 6pt
+\font\sevenheader=cmr7 at 7pt
+\font\eightheadrm=cmr10 at 8pt 
+\font\twelveheadrm=cmr10 at 12pt
+% MACROS FOR THE LETTERHEAD
+\renewcommand{\today}{\ifcase\month\or
+	January\or February\or March\or April\or May\or June\or
+	July\or August\or September\or October\or November\or December\fi
+	\space\number\day, \number\year}
+%\newcommand{\st}{\hss\raise-1pt\hbox{{\large$\cdot$}}\ \hss}
+\newcommand{\uwoltrhd}{
+	\hspace*{-0.1in}
+	\begin{minipage}[t]{3.0in}
+		\includegraphics[width=2.5cm]{stacked_full_cmyk.eps}
+	\end{minipage}
+	\begin{minipage}[t]{3.50in}
+		\vskip -1.15in
+		{\sevenheader \baselineskip=9pt
+			\hfill PAULINE BARMBY \par
+			\hfill ASSOCIATE PROFESSOR, \par
+			\hfill DEPARTMENT OF PHYSICS AND ASTRONOMY \par
+			\hfill ASSOCIATE DEAN, FACULTY OF SCIENCE  \par
+			\hfill WESTERN UNIVERSITY \par
+			\hfill LONDON, ONTARIO, N6A 3K7 \par
+             	\vskip  6pt
+			\hfill TELEPHONE: (519) 661--2111, ext.\ 81557 \par
+			\hfill TELEFAX: (519) 661--2033 \par
+			\hfill EMAIL: pbarmby@uwo.ca \par
+		\vskip 12pt} % end of sevenheader
+	\end{minipage}
+} % end of definition
