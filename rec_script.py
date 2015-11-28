@@ -18,7 +18,7 @@ def main():
         insert_macro(main_letter_fname,texfile, [full_addressee,ret_address,salutation,location,posname])
 
         # run latex
-#        os.system("pdflatex %s" % texfile)
+        os.system("pdflatex %s" % texfile)
     # end of loop over address_list
     f.close()
 
