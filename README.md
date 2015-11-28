@@ -11,4 +11,9 @@ Generates a set of related latex documents, with different
 
 The above fields are listed in the "address" file, a sample of which is in `sample_address`. 
 The script `rec_script.py` inserts these into a template LaTeX file as macros and runs LaTeX on the resulting file.
+
 Usage: `python rec_script sample.tex sample_address`, which produces `sample_misk_su.tex` and `sample_misk_su.pdf`.
+
+Files included for my convenience are letterhead `uwoletterhead.tex` and logo `stacked_full_cmyk-eps-converted-to.pdf`.
+Letterhead file courtesy S. Metchev.
+
