@@ -17,10 +17,17 @@ def main():
         insert_macro(main_letter_fname,texfile, macro_file)
 
         # run latex
-#        os.system()
-        # delete unneeded files
-    f.close()
+#        os.system("pdflatex %s" % texfile)
     # end of loop over address_list
+    f.close()
+
+    # delete unneeded files
+    texjunk = ["*.aux","*.log","*.synctex.gz"]
+    for g in texjunk:
+        for f in glob.glob(g):
+            os.unlink(f)
+    return
+
 
 def generate_macro(macro_file, content_list):
     outf = open(macro_file,"w")
