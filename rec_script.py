@@ -1,4 +1,4 @@
-import string, sys, os
+import string, sys, os, glob
 
 def main():
     main_letter_fname = sys.argv[1]
@@ -6,15 +6,16 @@ def main():
 
     f = open(address_list)
     for line in f.readlines():
-        #error trap this line
-        id,full_addressee,ret_address,location,salutation,posname = string.split(line,";")
-        # generate customized macro file for this address
-        macro_file = "address_macro_%s" % id
-        generate_macro(macro_file, [full_addressee,ret_address,salutation,location,posname])
+        # read info from address file
+        try:
+            id,full_addressee,ret_address,location,salutation,posname = string.split(line,";")
+        except ValueError:
+            print "Something wrong in %s, skipping" % line
+            continue
 
-        # insert macro into texfile
+        # insert macros into texfile
         texfile = main_letter_fname[:-4]+"_"+id+".tex"
-        insert_macro(main_letter_fname,texfile, macro_file)
+        insert_macro(main_letter_fname,texfile, [full_addressee,ret_address,salutation,location,posname])
 
         # run latex
 #        os.system("pdflatex %s" % texfile)
@@ -29,24 +30,26 @@ def main():
     return
 
 
-def generate_macro(macro_file, content_list):
-    outf = open(macro_file,"w")
+def generate_macro(outf, content_list):
+    '''generates set of latex commands based on contents of content_list
+       assumes specific format for content_list'''
     command_list = ["\\newcommand{\\addressee}{%s \\hfill\\today\\\\}", "\\newcommand{\\retaddress}{%s}", "\\newcommand{\\dear}{%s}", 
                     "\\newcommand{\\yourplace}{%s}", "\\newcommand{\\posname}{%s}"]
 
     for cmnd, cnt in zip(command_list,content_list):
          outstr = cmnd  % cnt
          outf.write(outstr+"\n")
-    outf.close()
     return
 
-def insert_macro(orig_file, new_file, macro_name):
+def insert_macro(orig_file, new_file, content_list):
+    '''copies orig_file to new_file, inserting customized macro at position of address_macro'''
     inf = open(orig_file,"r")
     outf = open(new_file, "w")
     for line in inf.readlines():
         if "address_macro" in line:
-            line = "\\input{%s}" % macro_name
-        outf.write(line)
+            generate_macro(outf, content_list)
+        else:
+            outf.write(line)
     inf.close()
     outf.close()
     return
